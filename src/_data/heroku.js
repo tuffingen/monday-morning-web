@@ -1,7 +1,8 @@
+
 const EleventyFetch = require("@11ty/eleventy-fetch");
 
 module.exports = async function() {
-  let url = "https://api.github.com/repos/11ty/eleventy";
+  let url = "https://salty-chamber-76888.herokuapp.com/meeps/api";
 
   /* This returns a promise */
   return EleventyFetch(url, {

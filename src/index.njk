@@ -2,34 +2,55 @@
 layout: base.njk
 title: Hello World
 ---
-
-{{ github | dump }}
+    {{ heroku | dump }}
+<main class="container">
 <h1>
     {{ github.login }}
 </h1>
 <img src="{{ github.avatar_url }}" alt="{{ github.login }}">
 <h2>Repositories</h2>
-<div id="repos">
+<div id="meeps">
     <button>Fetch</button>
-    <div class="spinner-border d-none" role="status">
+    <div class="spinner-border text-success d-none" role="status">
         <span class="visually-hidden">Loading...</span>
     </div>
+
 </div>
+    <ul>
+    {% for meep in heroku.meeps %}
+    <li>{{ meep.body }}</li>
+    {% endfor %}
+    </ul> 
+
+    
+
+
+
+
+
+
+
+
+
+
 <script>
-    const button = document.querySelector('#repos > button');
-    const spinner = document.querySelector('#repos > .spinner-border');
+    const button = document.querySelector('#meeps > button');
+    const spinner = document.querySelector('#meeps > .spinner-border');
     button.addEventListener('click', (e) => {
         spinner.classList.toggle('d-none');
-        fetch('https://api.github.com/users/tuffingen/repos')
+        button.classList.toggle('d-none');
+        fetch('https://salty-chamber-76888.herokuapp.com/meeps/api')
         .then(response => response.json())
         .then(data => {
             spinner.classList.toggle('d-none');
-            const repos = document.querySelector('#repos');
-            data.forEach(repo => {
+            button.classList.toggle('d-none');
+            const meeps = document.querySelector('#meeps');
+            data.forEach(meep => {
                 const p = document.createElement('p');
-                p.textContent = repo.name;
-                repos.appendChild(p);
+                p.textContent = meep.body;
+                meeps.appendChild(p);
             });
         });
     });
 </script>
+</main>
